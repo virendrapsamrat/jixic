@@ -35,7 +35,7 @@ const RootStackScreen = (props) => {
     <RootStack.Navigator headerMode='none'>
       <RootStack.Screen name="SplashScreen" component={SplashScreen} />
       <RootStack.Screen name="MainNavigator" component={MainNavigator} />
-      {/* <RootStack.Screen name="AuthNavigator" component={AuthNavigator} /> */}
+      <RootStack.Screen name="AuthNavigator" component={AuthNavigator} />
     </RootStack.Navigator>
   );
 };
