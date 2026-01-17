@@ -1,5 +1,6 @@
 # jixic 🤖
 
+
 **jixic** is a powerful custom React Native template designed to bootstrap your cross-platform applications with ease. It provides out-of-the-box support for **Android**, **iOS**, and **Web**, allowing you to build truly universal apps from a single codebase.
 
 ## 🚀 Features
