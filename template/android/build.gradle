@@ -2,24 +2,39 @@
 
 buildscript {
     ext {
-        buildToolsVersion = "29.0.3"
-        minSdkVersion = 21
-        compileSdkVersion = 29
-        targetSdkVersion = 29
-        ndkVersion = "20.1.5948944"
+        buildToolsVersion = "35.0.0"
+        minSdkVersion = 24
+        compileSdkVersion = 35
+        targetSdkVersion = 35
+        ndkVersion = "26.1.10909125"
     }
     repositories {
         google()
+        mavenCentral()
         jcenter()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:4.1.0")
+        classpath("com.android.tools.build:gradle:8.6.0")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.24")
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
 
 allprojects {
+    configurations.all {
+        resolutionStrategy {
+            force "com.facebook.react:react-android:0.75.2"
+            force "com.facebook.react:hermes-android:0.75.2"
+            dependencySubstitution {
+                substitute(module("com.facebook.react:react-native"))
+                    .using(module("com.facebook.react:react-android:0.75.2"))
+                substitute(module("com.facebook.react:hermes-engine"))
+                    .using(module("com.facebook.react:hermes-android:0.75.2"))
+            }
+        }
+    }
+
     repositories {
         mavenLocal()
         maven {
@@ -32,7 +47,21 @@ allprojects {
         }
 
         google()
+        mavenCentral()
         jcenter()
         maven { url 'https://www.jitpack.io' }
+    }
+
+    subprojects {
+        afterEvaluate {
+            if (project.hasProperty("android")) {
+                android {
+                    compileOptions {
+                        sourceCompatibility JavaVersion.VERSION_17
+                        targetCompatibility JavaVersion.VERSION_17
+                    }
+                }
+            }
+        }
     }
 }
